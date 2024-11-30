@@ -48,7 +48,7 @@ def create_bin():
     return redirect(url_for('routes.view_bin', bin_id=new_bin.id))
 
 
-@bp.route('/bin/<int:bin_id>', methods=['GET', 'POST'])
+@bp.route('/bin/<string:bin_id>', methods=['GET', 'POST'])
 def view_bin(bin_id):
     """
     Route pour afficher un bin.
