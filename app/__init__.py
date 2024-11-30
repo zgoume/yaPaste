@@ -19,14 +19,14 @@ def create_app():
     db.init_app(app)
 
     with app.app_context():
-        from . import routes, admin_routes, Admin
+        from . import routes, admin_routes, models
         app.register_blueprint(routes.bp)
         app.register_blueprint(admin_routes.bp, url_prefix='/admin')
 
         db.create_all()
 
         # Vérifier s'il existe un administrateur
-        if not Admin.query.first():
+        if not models.Admin.query.first():
             print("Aucun administrateur configuré. Accédez à /setup-admin pour configurer le mot de passe.")
 
     # Tâches planifiées
