@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Bin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
+</head>
+<body class="bg-dark text-light">
+    <div class="container mt-5">
+        <h1 class="text-center text-warning">Create a New Bin</h1>
+        <form method="POST" action="/create" class="mt-4">
+            <div class="mb-3">
+                <label for="content" class="form-label text-warning">Content</label>
+                <textarea class="form-control bg-dark text-light border-secondary" id="content" name="content" rows="5" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label text-warning">Password (Optional)</label>
+                <input type="password" class="form-control bg-dark text-light border-secondary" id="password" name="password">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input border-warning" id="is_public" name="is_public">
+                <label class="form-check-label text-warning" for="is_public">Make Public</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input border-warning" id="single_read" name="single_read">
+                <label class="form-check-label text-warning" for="single_read">Destroy After Reading</label>
+            </div>
+            <div class="mb-3">
+                <label for="expires_in" class="form-label text-warning">Expire In (days, 0 for no expiration)</label>
+                <input type="number" class="form-control bg-dark text-light border-secondary" id="expires_in" name="expires_in" min="0">
+            </div>
+            <button type="submit" class="btn btn-warning w-100">Create Bin</button>
+        </form>
+    </div>
+</body>
+</html>
