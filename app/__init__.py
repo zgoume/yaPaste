@@ -1,6 +1,10 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
-from .models import Bin, db
+from .models import Bin
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 def clean_expired_bins():
     with db.session.begin(subtransactions=True):  # Contexte sécurisé
