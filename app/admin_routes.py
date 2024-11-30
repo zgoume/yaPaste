@@ -56,7 +56,20 @@ def logout():
 @admin_required
 def dashboard():
     bins = Bin.query.all()
-    return render_template('admin_dashboard.html', bins=bins)
+    # Calcul des statistiques
+    total_bins = Bin.query.count()
+    public_bins = Bin.query.filter_by(is_public=True).count()
+    private_bins = total_bins - public_bins
+    expired_bins = Bin.query.filter(Bin.expires_at <= datetime.utcnow()).count()
+
+    stats = {
+        "total_bins": total_bins,
+        "public_bins": public_bins,
+        "private_bins": private_bins,
+        "expired_bins": expired_bins
+    }
+
+    return render_template('admin_dashboard.html', bins=bins, stats=stats)
 
 @bp.route('/delete/<int:bin_id>', methods=['POST'])
 @admin_required
