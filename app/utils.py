@@ -1,6 +1,7 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-import uuid
+import secrets
+import string
 from functools import wraps
 from flask import session, redirect, url_for, flash
 
@@ -31,13 +32,6 @@ def verify_password(hashed_password, password):
     """
     return check_password_hash(hashed_password, password)
 
-def generate_unique_id():
-    """
-    Génère un identifiant unique pour un bin.
-    :return: str
-    """
-    return str(uuid.uuid4())
-
 def format_datetime(value):
     """
     Formate une date pour l'afficher de manière lisible.
@@ -60,3 +54,11 @@ def admin_required(f):
             return redirect(url_for('admin_routes.login'))  # Redirige vers la page de connexion
         return f(*args, **kwargs)
     return decorated_function
+
+
+def generate_random_id():
+    """
+    Génère un ID unique de 8 caractères hexadécimaux (minuscules et majuscules).
+    """
+    characters = string.ascii_letters + string.digits
+    return ''.join(secrets.choice(characters) for _ in range(8))

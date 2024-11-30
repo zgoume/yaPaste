@@ -2,6 +2,7 @@ from datetime import datetime
 from app import db
 import secrets
 import string
+from .utils import generate_password_hash
 
 class Bin(db.Model):
     id = db.Column(db.String(8), primary_key=True, default=lambda: generate_random_id())
