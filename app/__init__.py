@@ -1,6 +1,5 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
-from .models import Bin
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
