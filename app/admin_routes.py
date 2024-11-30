@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from werkzeug.security import generate_password_hash
 from .models import Admin, Bin, db
-from .utils import admin_required
+from .utils import admin_required, check_password_hash
 
 bp = Blueprint('admin_routes', __name__)
 
@@ -55,10 +55,6 @@ def logout():
 @bp.route('/dashboard')
 @admin_required
 def dashboard():
-    from .models import Admin
-    if not Admin.query.first():
-        return redirect(url_for('admin_routes.setup_admin'))
-    
     bins = Bin.query.all()
     return render_template('admin_dashboard.html', bins=bins)
 

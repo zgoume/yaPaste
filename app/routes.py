@@ -10,6 +10,10 @@ def home():
     """
     Page d'accueil pour créer un bin.
     """
+    from .models import Admin
+    if not Admin.query.first():
+        return redirect(url_for('admin_routes.setup_admin'))
+    
     return render_template('create_bin.html')
 
 
