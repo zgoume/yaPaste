@@ -49,6 +49,7 @@ def login():
 @bp.route('/logout')
 def logout():
     session.pop('admin', None)
+    flash("Vous avez été déconnecté.", "info")
     return redirect(url_for('routes.home'))
 
 @bp.route('/dashboard')

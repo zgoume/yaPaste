@@ -1,0 +1,74 @@
+/* Global Styles */
+body {
+    background-color: #121212; /* Fond noir */
+    color: #e5c07b; /* Couleur sable pour le texte */
+    font-family: 'Arial', sans-serif;
+}
+
+a, a:hover, a:focus {
+    color: #d19a66; /* Orange désert */
+    text-decoration: none;
+}
+
+h1, h4 {
+    color: #f0e68c; /* Jaune sable clair */
+}
+
+.btn-primary {
+    background-color: #d19a66;
+    border-color: #d19a66;
+}
+
+.btn-primary:hover {
+    background-color: #e5c07b;
+    border-color: #e5c07b;
+}
+
+.btn-danger {
+    background-color: #e06c75;
+    border-color: #e06c75;
+}
+
+.btn-danger:hover {
+    background-color: #be5046;
+    border-color: #be5046;
+}
+
+.table {
+    background-color: #1e1e1e; /* Fond sombre pour les tables */
+    color: #e5c07b;
+    border-color: #282c34; /* Bordures foncées */
+}
+
+.table th, .table td {
+    border-color: #282c34;
+}
+
+pre {
+    background-color: #1e1e1e;
+    color: #e5c07b;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+/* Form Elements */
+.form-control {
+    background-color: #1e1e1e;
+    color: #e5c07b;
+    border: 1px solid #282c34;
+}
+
+.form-control:focus {
+    background-color: #1e1e1e;
+    color: #e5c07b;
+    border-color: #d19a66;
+}
+
+label {
+    color: #f0e68c;
+}
+
+.container {
+    margin-top: 50px;
+}
