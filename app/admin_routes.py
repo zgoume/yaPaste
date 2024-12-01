@@ -72,7 +72,7 @@ def dashboard():
 
     return render_template('admin_dashboard.html', bins=bins, stats=stats)
 
-@bp.route('/delete/<int:bin_id>', methods=['POST'])
+@bp.route('/delete/<string:bin_id>', methods=['POST'])
 @admin_required
 def delete_bin(bin_id):
     bin = Bin.query.get_or_404(bin_id)
