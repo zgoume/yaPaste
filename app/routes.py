@@ -72,6 +72,8 @@ def view_bin(bin_id):
         db.session.commit()
         abort(404, "Ce bin a expiré.")
 
+    print('DEBUG View BIN', file=sys.stdout)
+
     # Vérifie si le bin a été récemment créé
     recently_created = session.pop('recently_created_bin', None) == bin_id
     if recently_created:
