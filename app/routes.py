@@ -83,11 +83,11 @@ def view_bin(bin_id):
     if request.method == 'POST':
         # Vérification du mot de passe
         password = request.form.get('password')
-        if bin.password and not verify_password(bin.password, password):
+        if bin.password and verify_password(bin.password, password):
+            return render_template('view_bin.html', bin=bin, requires_password=False)
+        else:
             flash("Mot de passe incorrect.", "danger")
             return render_template('view_bin.html', bin=bin, requires_password=True)
-        else:
-            return render_template('view_bin.html', bin=bin, requires_password=False)
 
 
     # Suppression du bin après lecture unique
