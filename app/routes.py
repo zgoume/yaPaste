@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, redirect, url_for, abort, flash
+from flask import Blueprint, request, render_template, redirect, url_for, abort, flash, session
 from app.models import Bin, db
 from app.utils import is_expired, hash_password, verify_password
 from datetime import datetime, timedelta
@@ -50,6 +50,9 @@ def create_bin():
     db.session.add(new_bin)
     db.session.commit()
 
+    # Stocke l'ID du bin dans la session pour marquer qu'il a été récemment créé
+    session['recently_created_bin'] = new_bin.id
+
     flash("Bin créé avec succès.", "success")
     return redirect(url_for('routes.view_bin', bin_id=new_bin.id))
 
@@ -68,6 +71,11 @@ def view_bin(bin_id):
         db.session.delete(bin)
         db.session.commit()
         abort(404, "Ce bin a expiré.")
+
+    # Vérifie si le bin a été récemment créé
+    recently_created = session.pop('recently_created_bin', None) == bin_id
+    if recently_created:
+        return render_template('view_bin.html', bin=bin, requires_password=False)
 
     if request.method == 'POST':
         # Vérification du mot de passe
