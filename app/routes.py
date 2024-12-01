@@ -92,4 +92,4 @@ def view_bin(bin_id):
         db.session.delete(bin)
         db.session.commit()
 
-    return render_template('view_bin.html', bin=bin, requires_password=False)
+    return render_template('view_bin.html', bin=bin, requires_password=bin.password is not None)
