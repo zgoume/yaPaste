@@ -72,12 +72,12 @@ def view_bin(bin_id):
         db.session.commit()
         abort(404, "Ce bin a expiré.")
 
-    print('DEBUG View BIN', file=sys.stdout)
+    print('DEBUG View BIN', file=sys.stderr)
 
     # Vérifie si le bin a été récemment créé
     recently_created = session.pop('recently_created_bin', None) == bin_id
     if recently_created:
-        print('DEBUG Recently Created == True', file=sys.stdout)
+        print('DEBUG Recently Created == True', file=sys.stderr)
         return render_template('view_bin.html', bin=bin, requires_password=False)
 
     if request.method == 'POST':
