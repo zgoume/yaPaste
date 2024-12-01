@@ -21,33 +21,51 @@
                     <p>Expired Bins: <strong>{{ stats.expired_bins }}</strong></p>
                 </div>
             </div>
-        <table class="table table-dark table-striped mt-4">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Preview</th>
-                    <th>Public</th>
-                    <th>Expires At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for bin in bins %}
-                <tr>
-                    <td>{{ bin.id }}</td>
-                    <td>{{ bin.content[:50] }}...</td>
-                    <td>{{ 'Yes' if bin.is_public else 'No' }}</td>
-                    <td>{{ bin.expires_at or 'No Expiration' }}</td>
-                    <td>
-                        <a href="/bin/{{ bin.id }}" class="btn btn-sm btn-warning">View</a>
-                        <form method="POST" action="/admin/delete/{{ bin.id }}" style="display:inline;">
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+            <form method="POST" action="/admin/delete-multiple">
+                <table class="table table-dark table-striped mt-4">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="select-all" onclick="toggleSelectAll(this)"></th>
+                            <th>ID</th>
+                            <th>Preview</th>
+                            <th>Public</th>
+                            <th>Expires At</th>
+                            <th>Creator IP</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for bin in bins %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="bin_ids" value="{{ bin.id }}">
+                            </td>
+                            <td>{{ bin.id }}</td>
+                            <td>{{ bin.content[:50] }}...</td>
+                            <td>{{ 'Yes' if bin.is_public else 'No' }}</td>
+                            <td>{{ bin.expires_at or 'No Expiration' }}</td>
+                            <td>{{ bin.creator_ip or 'Unknown' }}</td>
+                            <td>
+                                <a href="/bin/{{ bin.id }}" class="btn btn-sm btn-warning">View</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-danger mt-3" onclick="return confirm('Êtes-vous sûr de vouloir supprimer les bins sélectionnés ?')">Delete Selected</button>
+            </form>
+            
+            <script>
+                // Script pour sélectionner/désélectionner toutes les cases à cocher
+                function toggleSelectAll(source) {
+                    checkboxes = document.querySelectorAll('input[name="bin_ids"]');
+                    for (var i = 0; i < checkboxes.length; i++) {
+                        checkboxes[i].checked = source.checked;
+                    }
+                }
+            </script>
+            
     </div>
+
 </body>
 </html>

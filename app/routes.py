@@ -39,13 +39,20 @@ def create_bin():
     # Hachage du mot de passe s'il existe
     hashed_password = hash_password(password) if password else None
 
+    # Récupération de l'adresse IP à partir de l'en-tête X-Forwarded-For
+    if 'X-Forwarded-For' in request.headers:
+        creator_ip = request.headers['X-Forwarded-For'].split(',')[0].strip()
+    else:
+        creator_ip = request.remote_addr  # Fallback si X-Forwarded-For n'est pas présent
+
     # Création d'un nouveau bin
     new_bin = Bin(
         content=content,
         password=hashed_password,
         is_public=is_public,
         single_read=single_read,
-        expires_at=expires_at
+        expires_at=expires_at,
+        creator_ip=creator_ip
     )
     db.session.add(new_bin)
     db.session.commit()

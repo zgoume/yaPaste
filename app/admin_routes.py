@@ -94,3 +94,22 @@ def stats():
         "private_bins": private_bins,
         "expired_bins": expired_bins
     }
+
+@bp.route('/delete-multiple', methods=['POST'])
+@admin_required
+def delete_multiple_bins():
+    """
+    Supprime plusieurs bins en fonction des IDs envoyés depuis le tableau de bord admin.
+    """
+    bin_ids = request.form.getlist('bin_ids')  # Récupère les IDs sélectionnés
+
+    if not bin_ids:
+        flash("Aucun bin sélectionné pour suppression.", "warning")
+        return redirect(url_for('admin_routes.dashboard'))
+
+    # Supprime les bins correspondants
+    Bin.query.filter(Bin.id.in_(bin_ids)).delete(synchronize_session='fetch')
+    db.session.commit()
+
+    flash(f"{len(bin_ids)} bin(s) supprimé(s) avec succès.", "success")
+    return redirect(url_for('admin_routes.dashboard'))
