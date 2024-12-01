@@ -11,7 +11,7 @@ class Bin(db.Model):
     is_public = db.Column(db.Boolean, default=True)
     single_read = db.Column(db.Boolean, default=False)
     expires_at = db.Column(db.DateTime, nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.now())
 
 class Admin(db.Model):
     id = db.Column(db.Integer, primary_key=True)

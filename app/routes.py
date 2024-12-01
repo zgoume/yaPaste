@@ -14,7 +14,9 @@ def home():
     if not Admin.query.first():
         return redirect(url_for('admin_routes.setup_admin'))
     
-    return render_template('create_bin.html')
+    public_bins = Bin.query.filter_by(is_public=True).order_by(Bin.created_at.desc()).limit(10).all()  # Récupère les 10 bins publics les plus récents
+    print("Public bins:", public_bins)
+    return render_template('create_bin.html', public_bins=public_bins)
 
 
 @bp.route('/create', methods=['POST'])
