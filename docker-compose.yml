@@ -13,6 +13,11 @@ services:
       - FLASK_ENV=production
     restart: always
 
+networks:
+  proxynet:
+    name: proxynet
+    external: true
+
 volumes:
   db_data:
     driver: local
