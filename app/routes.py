@@ -86,6 +86,9 @@ def view_bin(bin_id):
         if bin.password and not verify_password(bin.password, password):
             flash("Mot de passe incorrect.", "danger")
             return render_template('view_bin.html', bin=bin, requires_password=True)
+        else:
+            return render_template('view_bin.html', bin=bin, requires_password=False)
+
 
     # Suppression du bin après lecture unique
     if bin.single_read:
