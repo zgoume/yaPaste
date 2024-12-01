@@ -1,7 +1,18 @@
-version: '3.9'
+vversion: '3.9'
+
 services:
   web:
     build: .
     ports:
       - "5000:5000"
+    networks:
+      - proxynet
+    volumes:
+      - db_data:/app/db  # Monte un volume pour la base de données
+    environment:
+      - FLASK_ENV=production
     restart: always
+
+volumes:
+  db_data:
+    driver: local
