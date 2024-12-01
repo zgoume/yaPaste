@@ -11,7 +11,7 @@
 <body class="bg-dark text-light">
     <div class="container mt-5">
         <h1 class="text-center text-warning">View Bin</h1>
-        {% if bin.password %}
+        {% if requires_password %}
             <form method="POST">
                 <div class="mb-3">
                     <label for="password" class="form-label text-warning">Password</label>
