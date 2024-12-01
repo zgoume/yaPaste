@@ -12,6 +12,7 @@ class Bin(db.Model):
     single_read = db.Column(db.Boolean, default=False)
     expires_at = db.Column(db.DateTime, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now())
+    creator_ip = db.Column(db.String(45), nullable=True)  # Nouvelle colonne pour l'IP
 
 class Admin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
