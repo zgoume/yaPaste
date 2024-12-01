@@ -2,6 +2,7 @@ from flask import Blueprint, request, render_template, redirect, url_for, abort,
 from app.models import Bin, db
 from app.utils import is_expired, hash_password, verify_password
 from datetime import datetime, timedelta
+import sys
 
 bp = Blueprint('routes', __name__)
 
@@ -15,7 +16,6 @@ def home():
         return redirect(url_for('admin_routes.setup_admin'))
     
     public_bins = Bin.query.filter_by(is_public=True).order_by(Bin.created_at.desc()).limit(10).all()  # Récupère les 10 bins publics les plus récents
-    print("Public bins:", public_bins)
     return render_template('create_bin.html', public_bins=public_bins)
 
 
@@ -75,6 +75,7 @@ def view_bin(bin_id):
     # Vérifie si le bin a été récemment créé
     recently_created = session.pop('recently_created_bin', None) == bin_id
     if recently_created:
+        print('DEBUG Recently Created == True', file=sys.stdout)
         return render_template('view_bin.html', bin=bin, requires_password=False)
 
     if request.method == 'POST':
